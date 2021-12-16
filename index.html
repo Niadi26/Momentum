@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="assets/favicon.ico" rel="shortcut icon" />
+  <link rel="stylesheet" href="css/owfont-regular.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <title>Momentum</title>
+</head>
+<body>
+  <header class="header">
+    <div class="player can-hide">
+      <div class="player-controls">
+        <button class="play-prev player-icon"></button>
+        <button class="play player-icon"></button>
+        <button class="play-next player-icon"></button>
+      </div>
+      <div class="progress-container">
+        <div class="audio-name"></div>
+        <input id="pro" type="range" class="progress" value="0" min="0" max="100"> 
+        <div class="audio-time">
+        <span class="now"></span>
+        <span class="all"></span>
+        </div>
+      </div>
+      <div class="laught-container">
+        <button id="volume" class="volume player-icon"></button>
+        <input id="laught" type="range" class="laught" value="50" min="0" max="100">
+      </div>  
+      <ul class="play-list"></ul>
+    </div>
+    <div class="weather can-hide">
+      <input id="city" type="text" class="city"/>
+      <i class="weather-icon owf"></i>
+      <div class="weather-error"></div>
+      <div class="description-container">
+        <span class="temperature"></span>
+        <span class="weather-description"></span>
+      </div>
+      <div class="wind"></div>
+      <div class="humidity"></div>
+    </div>
+  </header>
+  <main class="main">
+    <div class="slider-icons">
+      <button class="slide-prev slider-icon"></button>
+      <button class="slide-next slider-icon"></button>
+    </div>
+    <time class="time can-hide"></time>
+    <date class="date can-hide"></date>
+    <div class="greeting-container can-hide">
+      <span class="greeting"></span>
+      <input id="name" type="text" class="name"/>
+    </div>
+  </main>
+  <section class="quote-container can-hide">
+    <button class="change-quote"></button>
+    <div>
+      <div class="quote"></div>
+      <div class="author"></div>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="footer-info">2021</div>
+    <a href="https://rs.school" class="footer-info">RS school</a>
+    <a href="https://github.com/Niadi26" class="footer-info">gitHub</a>
+    <button class="settingsBTN"></button>
+    <div class="menu-settings">
+      <div id="LANG" class="item-settings">
+        <p id="p-lang" class="ittem-title"></p>
+        <div class="cont">
+          <input id="EN" type="radio" name="lang" class="check-lang" value="EN">
+          <label id="label-en" for="EN" class="check-info">  </label>
+        </div>
+        <div class="cont">
+        <input id="RU" type="radio" name="lang" class="check-lang" value="RU"> 
+        <label id="label-ru" for="RU" class="check-info"> </label>
+        </div>
+      </div>
+      <div id = "BG" class="item-settings">
+        <p id="p-bg" class="ittem-title"></p>
+        <div class="cont">
+          <input id="git" type="radio" name="bg" class="check-bg" value="gitHab" checked>
+          <label id="label-git" for="git" class="check-info" value="gitHab">gitHub</label>
+        </div>
+        <div class="cont">
+          <input id="unsplash" type="radio" name="bg" class="check-bg" value="Unsplash">
+          <label id="label-unsplash" for="unsplash" class="check-info" value="Unsplash">Unsplash API</label>
+        </div>
+        <div class="cont">
+          <input id="flickr" type="radio" name="bg" class="check-bg" value="Flickr">
+          <label id="label-flickr" for="flickr" class="check-info" value="Flickr">Flickr API</label>
+        </div>
+      </div>
+      <div class="item-settings hide-settings">
+        <p id="p-opasity" class="ittem-title"></p>
+        <div class="cont">
+          <input  id="popasity" type="checkbox" class="hige-item" value="0">
+          <label id="player-opasity" for="popasity" class="check-info"></label>
+        </div>
+        <div class="cont">
+          <input id="wopasity" type="checkbox" class="hige-item" value="1">
+          <label id="weather-opasity" for="wopasity" class="check-info"></label>
+        </div>
+        <div class="cont">
+          <input id="topasity" type="checkbox" class="hige-item" value="2">
+          <label id="time-opasity" for="topasity" class="check-info"></label>
+        </div>
+        <div class="cont">
+           <input id="dopasity" type="checkbox" class="hige-item" value="3">
+           <label id="date-opasity" for="dopasity" class="check-info"></label> 
+        </div>
+        <div class="cont">
+          <input id="gopasity" type="checkbox" class="hige-item" value="4">
+          <label id="greeting-opasity" for="gopasity" class="check-info"></label>
+        </div>
+        <div class="cont">
+          <input id="qopasity" type="checkbox" class="hige-item" value="5">
+          <label id="quote-opasity" for="qopasity" class="check-info"></label>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="js/script.js" type="module"></script>
+</body>
+</html>
