@@ -41,8 +41,8 @@ body {
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  height: 25vh;
-  min-height: 220px;  
+  height: 30vh;
+  min-height: 200px;  
   padding: 20px;
 }
 
@@ -88,8 +88,8 @@ body {
 .player-icon,
 .slider-icon,
 .change-quote {
-  width: 32px;
-  height: 32px;
+  width: 35px;
+  height: 35px;
   background-size: 32px 32px;
   background-position: center center;
   background-repeat: no-repeat;
@@ -286,7 +286,7 @@ input[type=range]  {
   align-items: center;
   width: 100%;
   height: 35vh;
-  min-height: 260px;  
+  min-height: 220px;  
   padding: 20px;
 }
 
@@ -362,7 +362,7 @@ input[type=range]  {
   width: 100%;
   height: 25vh;
   min-height: 160px;  
-  padding: 20px;
+  padding: 10px;
 }
 
 .footer {
@@ -404,14 +404,13 @@ input[type=range]  {
   }
   .name {
     font-size: 25px;
+    padding: 5px;
   }
   .greeting {
     padding: 5px;
   }
-
-  .name {
-    font-size: 32px;
-    padding: 5px;
+  .laught-container {
+    display: none;
   }
 }
 
@@ -506,9 +505,6 @@ input[type=range]  {
   }
   .player-controls {
     margin-bottom: 15px;
-  }
-  .laught-container {
-    display: none;
   }
   .play-item {
     padding-bottom: 2px;
