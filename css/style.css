@@ -33,6 +33,7 @@ body {
   transition: background-image 1s ease-in-out;
   background-repeat: no-repeat;
   background-size: cover;
+  overflow: hidden;
 }
 
 .header {
@@ -431,7 +432,7 @@ input[type=range]  {
   position: absolute;
   bottom: 70px;
   width: 300px;
-  right: -700px;
+  right: -500px;
   overflow: hidden;
   border: 2px solid rgb(61, 60, 60);
   border-radius: 20px;
@@ -469,6 +470,10 @@ input[type=range]  {
   color: #C5B358;
 }
 
+.hige-item {
+  display: none;
+}
+
 .settingsBTN-active {
   opacity: 0.5;
   border-radius: 0;
@@ -488,6 +493,11 @@ input[type=range]  {
 
 .opasity {
   opacity: 0;
+  visibility: hidden;
+}
+
+.setting-active {
+  border-bottom: 1px solid #C5B358;
 }
 
 @media (max-width:500px) {

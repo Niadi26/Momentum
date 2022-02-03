@@ -52,7 +52,7 @@ const TRANSLATIONS = {
         OPASITYSETTINGS: 'Скрыть следующие элементы:',
         PLAYERSETTINGS: 'Плеер',
         WEATHERSETTINGS: 'Погода',
-        TIMESETTINGS: 'Времня',
+        TIMESETTINGS: 'Время',
         DATESETTINGS: 'Дата',
         GREETINGSETTINGS: 'Приветствие',
         QUOTESETTINGS: 'Цитаты',
