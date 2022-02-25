@@ -1,67 +1,9 @@
 
 import playList from './playList.js';
-
-//translate
-
-const LANGUAGES = {
-    RU: 'RU',
-    EN: 'EN',
-};
-
-const TRANSLATIONS = {
-    [LANGUAGES.EN]:{
-        DATE: 'en-En',
-        NIGHT: 'Good night,',
-        MORNING: 'Good morning,',
-        AFTERNOON: 'Good afternoon,',
-        EVENING: 'Good evening,',
-        WEATHER: 'en',
-        HUMIDITY: 'Humidity',
-        WIND: 'Wind speed',
-        QUOTESJSON: './js/dataEN.json',
-        NAME: '[Enter your name]',
-        CITYDEFAULT: 'Minsk',
-        LANGSETTINGS: 'Languadge:',
-        ENSETTINGS: 'English',
-        RUSETTINGS: 'Russan',
-        BGSETTINGS: 'Chose photo src:',
-        OPASITYSETTINGS: 'What you wanna hide:',
-        PLAYERSETTINGS: 'Player',
-        WEATHERSETTINGS: 'Weater',
-        TIMESETTINGS: 'Time',
-        DATESETTINGS: 'Date',
-        GREETINGSETTINGS: 'Greeting',
-        QUOTESETTINGS: 'Quotes',
-    },
-    [LANGUAGES.RU]:{
-        DATE: 'ru-Ru',
-        NIGHT: 'Прекрасная ночь,',
-        MORNING: 'Доброго утра,',
-        AFTERNOON: 'Надеюсь у тебя хороший день,',
-        EVENING: 'Славного вечера,',
-        WEATHER: 'ru',
-        HUMIDITY: 'Влажность',
-        WIND: 'Скорость воздуха',
-        QUOTESJSON: './js/dataRU.json',
-        NAME: '[Введите имя]',
-        CITYDEFAULT: 'Минск',
-        LANGSETTINGS: 'Язык:',
-        ENSETTINGS: 'Английский',
-        RUSETTINGS: 'Русский',
-        BGSETTINGS: 'Откуда подгрузить фото:',
-        OPASITYSETTINGS: 'Скрыть следующие элементы:',
-        PLAYERSETTINGS: 'Плеер',
-        WEATHERSETTINGS: 'Погода',
-        TIMESETTINGS: 'Время',
-        DATESETTINGS: 'Дата',
-        GREETINGSETTINGS: 'Приветствие',
-        QUOTESETTINGS: 'Цитаты',
-    },
-};
+import { LANGUAGES, TRANSLATIONS } from './translate.js';
 
 const checkLANG = document.getElementById('LANG');
 let currentLanguage = localStorage.getItem('languageUser') || LANGUAGES.EN;
-let inputValue;
 
 function setLang(event) {
     if(event.target && event.target.tagName === 'INPUT'){
@@ -97,9 +39,9 @@ let timeOfDay;
 function getTimeOfDay(x) {
     if (x < 6) {
         timeOfDay = TRANSLATIONS[currentLanguage].NIGHT;
-    } else if (x > 6 && x < 12) {
+    } else if (x > 5 && x < 12) {
         timeOfDay = TRANSLATIONS[currentLanguage].MORNING;
-    } else if (x > 12 &&  x < 18) {
+    } else if (x > 11 &&  x < 18) {
         timeOfDay = TRANSLATIONS[currentLanguage].AFTERNOON;
     } else {
         timeOfDay = TRANSLATIONS[currentLanguage].EVENING;
@@ -114,7 +56,6 @@ function showTime() {
     setTimeout(showTime, 1000);
 }
 showTime();
-
 //Local storage
 
 function setLocalStorage () {
@@ -147,8 +88,7 @@ const body = document.querySelector('body');
 const slideNext = document.querySelector('.slide-next');
 const slidePrev = document.querySelector('.slide-prev')
 
-let bgImg;
-let randomNum;
+let randomNum = getRandomNum(1,20);
 
 function getRandomNum (min, max) {
     min = Math.ceil(min);
@@ -162,10 +102,10 @@ function getTimeOfBG(x) {
     if (x < 6) {
         timeOfBG = 'night';
     }
-    else if (x > 6 && x < 12) {
+    else if (x > 5 && x < 12) {
         timeOfBG = 'morning';
     }
-    else if (x > 12 &&  x < 18) {
+    else if (x > 11 &&  x < 18) {
         timeOfBG = 'afternoon';
     }
     else {
@@ -173,45 +113,71 @@ function getTimeOfBG(x) {
     }
     return  timeOfBG;
 }
-getTimeOfBG(new Date().getHours());
 
-function getBg() {
-    randomNum = getRandomNum(1,20);
-    if (randomNum < 10) {
-        randomNum = '0' + randomNum;
+async function checkSourse(num) {
+    const sourse = localStorage.getItem('url') || 'git';
+    timeOfBG = getTimeOfBG(new Date().getHours());
+    let src;
+    if (sourse === 'git') {
+        if (num < 10) {
+            num = '0' + num;
+        }
+        src = `https://raw.githubusercontent.com/Niadi26/stage1-tasks/assets/images/${timeOfBG}/${num}.jpg`;
+    } else if (sourse === 'unsplash') {
+        src = await getLinkToImageUn(num, timeOfBG);
+    } else if (sourse === 'flickr') {
+        src = await getLinkToImageFl(num, timeOfBG);
     }
+    getBg(src)
+}
+checkSourse(randomNum)
+
+function getBg(src) {
     const img = new Image();
-    img.src = `https://raw.githubusercontent.com/Niadi26/stage1-tasks/assets/images/${timeOfBG}/${randomNum}.jpg`;
+    img.src = src;
     img.onload = () => {  
     body.style.backgroundImage = `url('${img.src}')`;
     }
 };
-getBg();
+
+async function getLinkToImageUn(num, time) {
+    const url = `https://api.unsplash.com/photos/?${time}&orientation=landscape&page=1&per_page=150&client_id=-GLf81mBHCrcdc8QNVsRnwog9ZXNjk2fobfOvm1RFWo`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const src = data[num].urls.full;
+    return src;
+   }
+
+async function getLinkToImageFl(num, time) {
+    const url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=88f45e1f8e8e9d3720da83ccb198d622&tags=${time}&extras=url_l&format=json&nojsoncallback=1`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const src = data.photos.photo[num].url_l;
+    return src;
+};
 
 function getSlideNext() {
-    console.log(randomNum);
-    if (randomNum === 20) {
-        return getBg(1);
+    if (+randomNum == 20) {
+        randomNum = 1;
     }
     else {
-        randomNumNext = randomNum + 1;
-        console.log(randomNumNext)
-        return getBg(randomNumNext);
+        randomNum = +randomNum + 1;
     }
+    checkSourse(randomNum);
 }
 
 function getSlidePrev() {
-    if (randomNum === 1) {
-        return getBg(20, timeOfDay);
+    if (+randomNum == 1) {
+        randomNum = 20;
     }
     else {
-    NumPrev = randomNum - 1;    
-    return getBg(NumPrev, timeOfDay);
-    }
+        randomNum = +randomNum - 1;   
+    } 
+    checkSourse(randomNum);
 }
 
-slideNext.addEventListener('click', getBg);
-slidePrev.addEventListener('click', getBg);
+slideNext.addEventListener('click', getSlideNext);
+slidePrev.addEventListener('click', getSlidePrev);
 
 //weather
 const weatherIcon = document.querySelector('.weather-icon');
@@ -300,14 +266,14 @@ function playAudio() {
         liList.forEach((el)=>{
             el.classList.remove('item-active');})
         liList[playNum].classList.add('item-active');
-        audio.currentTime = 0;
+        audio.currentTime = progress.value;
         audio.play();
         isPlay = true;
         play.classList.add('pause');
     }
     else {
         audio.pause();
-        isPlay = false;
+        isPlay = false;;
         play.classList.remove('pause');
         liList.forEach((el)=>{
             el.classList.remove('item-active');
@@ -390,20 +356,22 @@ volume.addEventListener('click',  muteAudio);
 audio.ontimeupdate = progressAudio;
 
 function progressAudio () {
-    let allT = audio.duration;
-    let nowT = audio.currentTime;
-    progress.value = nowT / allT * 100;
-    nowTime.textContent = formatTime(nowT);
-    function formatTime(seconds) {
-        let min = Math.floor((seconds / 60));
-        let sec = Math.floor(seconds - (min * 60));
-        if (sec < 10){ 
-            sec  = `0${sec}`;
+    if(isPlay) {
+        let allT = audio.duration;
+        let nowT = audio.currentTime;
+        progress.value = nowT / allT * 100;
+        nowTime.textContent = formatTime(nowT);
+        function formatTime(seconds) {
+            let min = Math.floor((seconds / 60));
+            let sec = Math.floor(seconds - (min * 60));
+            if (sec < 10){ 
+                sec  = `0${sec}`;
+            };
+            return `0${min}:${sec}`;
         };
-        return `0${min}:${sec}`;
-    };
-    if (progress.value == 100) {
-        playnextAudio();
+        if (progress.value == 100) {
+            playnextAudio();
+        }
     }
 }
 
@@ -411,8 +379,6 @@ function progressAudio () {
 function WindV () {                                                         
     let w = this.offsetWidth;
     let o = event.offsetX;
-    console.log(w);
-    console.log(o);
     audio.pause();
     audio.currentTime = audio.duration * (o / w);
     audio.play();
@@ -533,41 +499,29 @@ checkOnLoad();
 //img api
 const checkBG = document.getElementById('BG');
 
-async function getLinkToImageUn() {
-    const url = `https://api.unsplash.com/photos/random?orientation=landscape&query=nature&client_id=-GLf81mBHCrcdc8QNVsRnwog9ZXNjk2fobfOvm1RFWo`;
-    const res = await fetch(url);
-    const data = await res.json();
-    function getBgUn() {
-        const img = new Image();
-        img.src = data.urls.regular;
-        img.onload = () => {  
-        body.style.backgroundImage = `url('${img.src}')`;
+function checkImputBg() {
+    const inputs = document.querySelectorAll('.check-bg');
+    const checkedValue = localStorage.getItem('url') || 'git';
+    inputs.forEach(el => {
+        if(el.value === checkedValue) {
+            el.setAttribute('checked', true);
         }
-    };
-    getBgUn();
-   }
-
-async function getLinkToImageFl() {
-    const url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=88f45e1f8e8e9d3720da83ccb198d622&tags=nature&extras=url_l&format=json&nojsoncallback=1`;
-    const res = await fetch(url);
-    const data = await res.json();
-    function getBgFl() {
-            const img = new Image();
-            img.src = data.urls.regular;
-            img.onload = () => {  
-                body.style.backgroundImage = `url('${img.src}')`;
-            }
-    }
-   getBgFl();
-};
+    })
+}
+checkImputBg();
 
 function getSourse(event) {
     if(event.target && event.target.tagName === 'INPUT' || event.target && event.target.tagName === 'LABEL') {
-        if(event.target.value == 'Unsplash') {
-            getLinkToImageUn()
+        if(event.target.value == 'unsplash') {
+            localStorage.setItem('url', `unsplash`);
+            checkSourse(randomNum)
         } 
-        else if(event.target.value == 'Flickr') {
-            getLinkToImageFl();
+        else if(event.target.value == 'flickr') {
+            localStorage.setItem('url', 'flickr');
+            checkSourse(randomNum);
+        } else if (event.target.value == 'git') {
+            localStorage.setItem('url', 'git');
+            checkSourse(randomNum);
         }
     }
 }

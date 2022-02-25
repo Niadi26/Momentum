@@ -194,7 +194,8 @@ input[type=range]  {
 
 .volume {
   margin-right: 5px;
-  background-color: #FFFFFF;
+  background-image: url(../assets/svg/volume.svg);
+  background-size: contain;
   width: 25px;
   height: 25px;
   border-radius: 50%;
@@ -417,9 +418,8 @@ input[type=range]  {
 .settingsBTN {
   width: 30px;
   height: 30px;
-  border-radius: 50%;
-  background-color: #FFFFFF;
-  opacity: 0.8;
+  background-image: url(../assets/svg/settings.svg);
+  background-size: contain;
   cursor: pointer;
   transition: 1s;
 }
@@ -432,36 +432,42 @@ input[type=range]  {
   bottom: 70px;
   width: 300px;
   right: -500px;
-  overflow: hidden;
-  border: 2px solid rgb(61, 60, 60);
-  border-radius: 20px;
   transition: 0.5s;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  text-transform: uppercase;
+	background-color: #444;
+  opacity: 0.8;
 }
+
 .item-settings {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 10px;
   width: 100%;
-  background-color: #ffffffc4;
-  color: rgb(75, 75, 75);
   font-size: 18px;
-  transition: 1s;
-  border-bottom: 2px solid rgb(61, 60, 60);
+  transition: 0.5s;
+  border-bottom: 5px solid #fff;
+}
+
+.item-settings:hover {
+  opacity: 1;
+  color: #444;
+  background-color: #fff;
 }
 
 .ittem-title {
   margin-bottom: 10px;
-  transition: 1s;
+  transition: 0.3s;
 }
 
-.item-settings:hover .ittem-title {
-  transform: scale(1.1);
-  color: #C5B358;
-}
 .check-info {
   padding-left: 5px;
-  transition: 1s;
+  transition: 0.3s;
   cursor: pointer;
 }
 
@@ -474,9 +480,9 @@ input[type=range]  {
 }
 
 .settingsBTN-active {
-  opacity: 0.5;
-  border-radius: 0;
+  transform: rotate(360deg);
 }
+
 .footer-active {
   overflow: visible;
 }
