@@ -453,7 +453,7 @@ function addOpasity(event) {
 
 divHideSettings.addEventListener('click', addOpasity);
 
-//think how make this better
+//localstorage
 
 function checkInput() {
     if (localStorage.getItem('checked0')) {
