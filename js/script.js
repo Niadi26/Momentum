@@ -4,10 +4,9 @@ import { LANGUAGES, TRANSLATIONS } from './translate.js';
 
 const checkLANG = document.getElementById('LANG');
 let currentLanguage = localStorage.getItem('languageUser') || LANGUAGES.EN;
-
 function setLang(event) {
     if(event.target && event.target.tagName === 'INPUT'){
-        inputValue = event.target.value;
+       const inputValue = event.target.value;
        currentLanguage = event.target.value;
        setPlaceholder();
        addTextSettings();
