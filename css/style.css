@@ -432,7 +432,7 @@ input[type=range]  {
   position: absolute;
   bottom: 70px;
   width: 300px;
-  right: -500px;
+  left: -50px;
   transition: 0.5s;
   color: white;
   font-size: 14px;
@@ -440,7 +440,7 @@ input[type=range]  {
   text-decoration: none;
   text-transform: uppercase;
 	background-color: #444;
-  opacity: 0.8;
+  opacity: 0;
 }
 
 .item-settings {
@@ -488,8 +488,9 @@ input[type=range]  {
   overflow: visible;
 }
 .menu-active {
-  right: 50px;
+  left: 100px;
   transition: 1s;
+  opacity: 0.8;
 }
 
 .can-hide {
